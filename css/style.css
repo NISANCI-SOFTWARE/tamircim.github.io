@@ -467,12 +467,12 @@ body {
 }
 
 .more_comment button {
-  width: 240px;
+width: 240px;
   height: 46px;
   background-color: #181818;
   color: #fff;
   margin-top: 46px;
-  margin-left: 520px;
+  margin-left: 740px;
   border-radius: 12px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border: 1px solid #243238;
