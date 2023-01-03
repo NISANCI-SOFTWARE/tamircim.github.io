@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="../icon.png" type="image/x-icon" />
+    <title>Tamircim - Mutfak Galeri</title>
+  </head>
+
+  <style>
+    .hello {
+      opacity: 1 !important;
+    }
+
+    .full {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .full .content {
+      background-color: rgba(0, 0, 0, 0.75) !important;
+      height: 100%;
+      width: 100%;
+      display: grid;
+    }
+
+    .full .content img {
+      left: 50%;
+      transform: translate3d(0, 0, 0);
+      animation: zoomin 1s ease;
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto;
+    }
+
+    .byebye {
+      opacity: 0;
+    }
+
+    .byebye:hover {
+      transform: scale(0.2) !important;
+    }
+
+    .gallery {
+      display: grid;
+      grid-column-gap: 8px;
+      grid-row-gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-auto-rows: 8px;
+    }
+
+    .gallery img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 16px #333;
+      transition: all 1.5s ease;
+    }
+
+    .gallery img:hover {
+      box-shadow: 0 0 32px #333;
+    }
+
+    .gallery .content {
+      padding: 4px;
+    }
+
+    .gallery .gallery-item {
+      transition: grid-row-start 300ms linear;
+      transition: transform 300ms ease;
+      transition: all 0.5s ease;
+      cursor: pointer;
+    }
+
+    .gallery .gallery-item:hover {
+      transform: scale(1.025);
+    }
+
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+      }
+    }
+
+    @media (max-width: 400px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+      }
+    }
+
+    @-moz-keyframes zoomin {
+      0% {
+        max-width: 50%;
+        transform: rotate(-30deg);
+        filter: blur(4px);
+      }
+
+      30% {
+        filter: blur(4px);
+        transform: rotate(-80deg);
+      }
+
+      70% {
+        max-width: 50%;
+        transform: rotate(45deg);
+      }
+
+      100% {
+        max-width: 100%;
+        transform: rotate(0deg);
+      }
+    }
+
+    @-webkit-keyframes zoomin {
+      0% {
+        max-width: 50%;
+        transform: rotate(-30deg);
+        filter: blur(4px);
+      }
+
+      30% {
+        filter: blur(4px);
+        transform: rotate(-80deg);
+      }
+
+      70% {
+        max-width: 50%;
+        transform: rotate(45deg);
+      }
+
+      100% {
+        max-width: 100%;
+        transform: rotate(0deg);
+      }
+    }
+
+    @-o-keyframes zoomin {
+      0% {
+        max-width: 50%;
+        transform: rotate(-30deg);
+        filter: blur(4px);
+      }
+
+      30% {
+        filter: blur(4px);
+        transform: rotate(-80deg);
+      }
+
+      70% {
+        max-width: 50%;
+        transform: rotate(45deg);
+      }
+
+      100% {
+        max-width: 100%;
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes zoomin {
+      0% {
+        max-width: 50%;
+        transform: rotate(-30deg);
+        filter: blur(4px);
+      }
+
+      30% {
+        filter: blur(4px);
+        transform: rotate(-80deg);
+      }
+
+      70% {
+        max-width: 50%;
+        transform: rotate(45deg);
+      }
+
+      100% {
+        max-width: 100%;
+        transform: rotate(0deg);
+      }
+    }
+
+    #loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      width: 120px;
+      height: 120px;
+      margin: -76px 0 0 -76px;
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Add animation to "page content" */
+    .animate-bottom {
+      position: relative;
+      -webkit-animation-name: animatebottom;
+      -webkit-animation-duration: 1s;
+      animation-name: animatebottom;
+      animation-duration: 1s;
+    }
+
+    @-webkit-keyframes animatebottom {
+      from {
+        bottom: -100px;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 0px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes animatebottom {
+      from {
+        bottom: -100px;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 1;
+      }
+    }
+
+    #myDiv {
+      display: none;
+      text-align: center;
+    }
+  </style>
+
+  <body onload="myFunction()" style="margin: 0">
+    <div id="loader"></div>
+    <div class="gallery" id="gallery">
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_1.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_2.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_3.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_4.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_5.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_6.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_7.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_8.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_9.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_10.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_11.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_12.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_13.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_14.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_15.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_16.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_17.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_18.jpg" alt="" />
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_19.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_20.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_21.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_22.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_23.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_24.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_25.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_26.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_27.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_28.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_29.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_30.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_31.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_32.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_33.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_34.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_35.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_36.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_37.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_38.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_39.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_40.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_41.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_42.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_43.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_44.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_45.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_46.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_47.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_48.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_49.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="content">
+          <img src="../img/mutfak_images_50.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var myVar;
+
+      function myFunction() {
+        myVar = setTimeout(showPage, 3000);
+      }
+
+      function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("myDiv").style.display = "block";
+      }
+
+      var gallery = document.querySelector("#gallery");
+      var getVal = function (elem, style) {
+        return parseInt(window.getComputedStyle(elem).getPropertyValue(style));
+      };
+      var getHeight = function (item) {
+        return item.querySelector(".content").getBoundingClientRect().height;
+      };
+      var resizeAll = function () {
+        var altura = getVal(gallery, "grid-auto-rows");
+        var gap = getVal(gallery, "grid-row-gap");
+        gallery.querySelectorAll(".gallery-item").forEach(function (item) {
+          var el = item;
+          el.style.gridRowEnd =
+            "span " + Math.ceil((getHeight(item) + gap) / (altura + gap));
+        });
+      };
+      gallery.querySelectorAll("img").forEach(function (item) {
+        item.classList.add("byebye");
+        if (item.complete) {
+          console.log(item.src);
+        } else {
+          item.addEventListener("load", function () {
+            var altura = getVal(gallery, "grid-auto-rows");
+            var gap = getVal(gallery, "grid-row-gap");
+            var gitem = item.parentElement.parentElement;
+            gitem.style.gridRowEnd =
+              "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
+            item.classList.remove("byebye");
+          });
+        }
+      });
+      window.addEventListener("resize", resizeAll);
+      gallery.querySelectorAll(".gallery-item").forEach(function (item) {
+        item.addEventListener("hover", function () {
+          item.classList.toggle("full");
+        });
+      });
+    </script>
+  </body>
+</html>
