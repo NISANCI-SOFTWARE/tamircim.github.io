@@ -101,6 +101,11 @@ body {
   display: none;
 }
 
+#home img{
+
+  margin-left: 180px;
+}
+
 /*----About styles----*/
 
 #hakkımızda {
@@ -159,6 +164,46 @@ body {
 
 .about_video {
   margin-left: 42px;
+}
+
+
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
 }
 
 /*contact infos*/
@@ -780,7 +825,7 @@ body {
   }
 
   .about_video {
-    display: none;
+    display: block;
   }
 
   /*contact infos*/
@@ -1160,4 +1205,24 @@ body {
     font-size: 15px;
     border: 1px solid #243238;
   }
+
+
+  
+#home img{
+  margin-top: 72px;
+  width: 100%;
+  height: auto;
+
+}
+
+
+#home img{
+  margin-left: 0px;
+}
+
+.about_video {
+  margin-left: 0px;
+}
+
+
 }
