@@ -33,6 +33,7 @@ clickMobileAbout.addEventListener("click", function () {
   btnMenuClose.style.display = "none";
 });
 
+
 const clickMobileServcies = document.querySelector(".services-mobile");
 clickMobileServcies.addEventListener("click", function () {
   menu.style.display = "none";
